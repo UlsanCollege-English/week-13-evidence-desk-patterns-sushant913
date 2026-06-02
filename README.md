@@ -1,52 +1,68 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/cm6PS4yt)
+````md
 # Week 1 Homework: Evidence Desk Patterns
 
 ## Student Name
 
-Write your name here.
+Sushant Thapa
 
-## Summary
+---
 
-Write 3–6 lines describing what this homework asks you to practice.
+# Summary
 
-Example topics:
+This homework focuses on applying core data structure patterns using Python.
+The assignment includes implementing efficient solutions using dictionaries,
+sets, stacks, queues, and sorting algorithms.
 
-- frequency counting with dictionaries
-- duplicate detection with sets
-- stack matching with lists
-- lookup tables with dictionaries
+The main objective is to strengthen problem-solving skills while practicing
+time complexity analysis and structured programming techniques.
 
-## How to Run Tests
+Topics covered in this homework include:
+
+- Frequency counting with dictionaries
+- Duplicate detection using sets
+- Stack matching using lists
+- Lookup tables with dictionaries
+- Queue processing using deque
+- Sorting and scanning techniques
+
+---
+
+# How to Run Tests
 
 From the repository root, run:
 
 ```bash
 pytest -q
-```
+````
 
-To run one test file:
+To run a specific test file:
 
 ```bash
 pytest -q tests/test_challenges.py
 ```
 
-## Required Problems
+---
 
-Complete these functions in `src/challenges.py`:
+# Required Problems
+
+Completed functions in `src/challenges.py`:
 
 1. `count_evidence`
 2. `first_repeated_id`
 3. `valid_tags`
 4. `lookup_alias`
 
-## Optional Challenges
+---
 
-These are extra practice unless your instructor tells you otherwise:
+# Optional Challenges
+
+Completed optional functions:
 
 1. `process_reports`
 2. `largest_time_gap`
 
-Optional tests are skipped by default. To run them, remove the `@pytest.mark.skip(...)` line above the optional test you want to check.
+Optional tests are skipped by default.
+To run them, remove the `@pytest.mark.skip(...)` line above the optional test.
 
 ---
 
@@ -56,31 +72,34 @@ Optional tests are skipped by default. To run them, remove the `@pytest.mark.ski
 
 ### Pattern
 
-Write the pattern name here.
+Frequency Counting
 
 ### Data Structure
 
-Write the data structure here.
+Dictionary (`dict`)
 
 ### Approach
 
-- Step 1:
-- Step 2:
-- Step 3:
+* Step 1: Create an empty dictionary to store counts.
+* Step 2: Iterate through the evidence list.
+* Step 3: Update the frequency count for each evidence label.
 
 ### Complexity
 
-- Time: `O(?)`
-- Space: `O(?)`
+* Time: `O(n)`
+* Space: `O(n)`
 
-Explain briefly:
+### Explanation
+
+The algorithm loops through the list once while using dictionary lookups
+and updates, which operate in constant average time.
 
 ### Edge Cases Checked
 
-- [ ] Empty list
-- [ ] One item
-- [ ] Repeated items
-- [ ] Different labels
+* [x] Empty list
+* [x] One item
+* [x] Repeated items
+* [x] Different labels
 
 ---
 
@@ -88,31 +107,34 @@ Explain briefly:
 
 ### Pattern
 
-Write the pattern name here.
+Seen-Before Detection
 
 ### Data Structure
 
-Write the data structure here.
+Set (`set`)
 
 ### Approach
 
-- Step 1:
-- Step 2:
-- Step 3:
+* Step 1: Create an empty set called `seen_ids`.
+* Step 2: Iterate through each suspect ID.
+* Step 3: Return the first ID already present in the set.
 
 ### Complexity
 
-- Time: `O(?)`
-- Space: `O(?)`
+* Time: `O(n)`
+* Space: `O(n)`
 
-Explain briefly:
+### Explanation
+
+Each ID is visited once, and set membership checks are constant time on
+average, making the solution efficient.
 
 ### Edge Cases Checked
 
-- [ ] Empty list
-- [ ] No repeated IDs
-- [ ] First two IDs match
-- [ ] Multiple repeated IDs
+* [x] Empty list
+* [x] No repeated IDs
+* [x] First two IDs match
+* [x] Multiple repeated IDs
 
 ---
 
@@ -120,33 +142,36 @@ Explain briefly:
 
 ### Pattern
 
-Write the pattern name here.
+Stack Matching
 
 ### Data Structure
 
-Write the data structure here.
+List used as a Stack
 
 ### Approach
 
-- Step 1:
-- Step 2:
-- Step 3:
+* Step 1: Push opening brackets onto the stack.
+* Step 2: Compare closing brackets with the stack top.
+* Step 3: Ensure all brackets are matched correctly.
 
 ### Complexity
 
-- Time: `O(?)`
-- Space: `O(?)`
+* Time: `O(n)`
+* Space: `O(n)`
 
-Explain briefly:
+### Explanation
+
+The algorithm processes each character once while maintaining nesting order
+using Last-In-First-Out stack behavior.
 
 ### Edge Cases Checked
 
-- [ ] Empty string
-- [ ] Correctly nested tags
-- [ ] Mismatched tags
-- [ ] Closing tag before opening tag
-- [ ] Unclosed opening tag
-- [ ] Non-bracket characters
+* [x] Empty string
+* [x] Correctly nested tags
+* [x] Mismatched tags
+* [x] Closing tag before opening tag
+* [x] Unclosed opening tag
+* [x] Non-bracket characters
 
 ---
 
@@ -154,29 +179,31 @@ Explain briefly:
 
 ### Pattern
 
-Write the pattern name here.
+Lookup Table
 
 ### Data Structure
 
-Write the data structure here.
+Dictionary (`dict`)
 
 ### Approach
 
-- Step 1:
-- Step 2:
+* Step 1: Search the alias dictionary.
+* Step 2: Return the matching real name or `None`.
 
 ### Complexity
 
-- Time: `O(?)`
-- Space: `O(?)`
+* Time: `O(1)`
+* Space: `O(1)`
 
-Explain briefly:
+### Explanation
+
+Dictionary lookup operations are constant average time.
 
 ### Edge Cases Checked
 
-- [ ] Known alias
-- [ ] Unknown alias
-- [ ] Empty dictionary
+* [x] Known alias
+* [x] Unknown alias
+* [x] Empty dictionary
 
 ---
 
@@ -184,17 +211,20 @@ Explain briefly:
 
 ## AI Used?
 
-- [ ] Yes
-- [ ] No
+* [x] Yes
+* [ ] No
 
 ## If yes, what did AI help with?
 
-Write 1–3 bullets.
-
--
--
--
+* Improving documentation formatting
+* Reviewing algorithm complexity
+* Refining code structure and readability
 
 ## Other Sources
 
-List any non-course sources you used. If none, write `None`.
+* Python Official Documentation
+* Course Lecture Slides
+* Classroom Notes
+
+```
+```

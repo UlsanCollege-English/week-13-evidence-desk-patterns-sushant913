@@ -1,201 +1,226 @@
-"""Week 1 Homework: Evidence Desk Patterns.
+"""
+Week 1 Homework: Evidence Desk Patterns
 
-Complete each function using the data structure pattern named in the docstring.
+Author: Sushant Thapa
+Python Version: 3.11+
 
-Rules:
-- Python 3.11+
-- Standard library only
-- Do not change function names or parameters
-- Run tests with: pytest -q
+Patterns Used:
+1. Frequency Counting
+2. Seen-Before Detection
+3. Stack Matching
+4. Lookup Table
+5. Queue Processing
+6. Sorting + Scanning
 """
 
 from collections import deque
 
 
 # -----------------------------------------------------------------------------
-# Required Problem 1
+# Problem 1 — Frequency Counting
 # -----------------------------------------------------------------------------
 
 def count_evidence(evidence: list[str]) -> dict[str, int]:
-    """Return a dictionary counting how many times each evidence label appears.
-
-    Pattern: frequency counting
-    Data structure: dictionary
-
-    Examples:
-        >>> count_evidence(["phone", "receipt", "phone"])
-        {'phone': 2, 'receipt': 1}
-        >>> count_evidence([])
-        {}
+    """
+    Count how many times each evidence label appears.
 
     Args:
-        evidence: A list of evidence labels.
+        evidence: List of evidence labels.
 
     Returns:
-        A dictionary where each key is an evidence label and each value is the
-        number of times that label appears.
+        Dictionary containing evidence counts.
     """
-    # TODO: Create an empty dictionary.
-    # TODO: Loop through evidence.
-    # TODO: Update the count for each item.
-    # TODO: Return the dictionary.
-    pass
+
+    frequency_map: dict[str, int] = {}
+
+    for label in evidence:
+        frequency_map[label] = frequency_map.get(label, 0) + 1
+
+    return frequency_map
 
 
 # -----------------------------------------------------------------------------
-# Required Problem 2
+# Problem 2 — Seen-Before Pattern
 # -----------------------------------------------------------------------------
 
 def first_repeated_id(ids: list[str]) -> str | None:
-    """Return the first suspect ID that appears a second time.
-
-    Pattern: seen before
-    Data structure: set
-
-    Examples:
-        >>> first_repeated_id(["A17", "B22", "C91", "B22"])
-        'B22'
-        >>> first_repeated_id(["A17", "B22", "C91"])
-        None
+    """
+    Find the first suspect ID that appears twice.
 
     Args:
-        ids: A list of suspect ID strings.
+        ids: List of suspect IDs.
 
     Returns:
-        The first ID that appears again, or None if there are no repeats.
+        First repeated ID or None.
     """
-    # TODO: Create an empty set named seen.
-    # TODO: Loop through ids.
-    # TODO: If the current ID is already in seen, return it.
-    # TODO: Otherwise, add it to seen.
-    # TODO: Return None if no repeated ID is found.
-    pass
+
+    seen_ids: set[str] = set()
+
+    for suspect_id in ids:
+
+        if suspect_id in seen_ids:
+            return suspect_id
+
+        seen_ids.add(suspect_id)
+
+    return None
 
 
 # -----------------------------------------------------------------------------
-# Required Problem 3
+# Problem 3 — Stack Matching
 # -----------------------------------------------------------------------------
 
 def valid_tags(tags: str) -> bool:
-    """Return True if all bracket-style evidence tags are balanced.
+    """
+    Validate whether all brackets are balanced.
 
-    Pattern: stack matching
-    Data structure: list used as a stack
-
-    Valid tag characters are (), [], and {}.
-    Ignore all other characters.
-
-    Examples:
-        >>> valid_tags("{[()]}")
-        True
-        >>> valid_tags("{[(])}")
-        False
-        >>> valid_tags("case-{A17}[photo]")
-        True
+    Supported brackets:
+        (), [], {}
 
     Args:
-        tags: A string that may contain bracket characters.
+        tags: String containing possible bracket characters.
 
     Returns:
-        True if brackets are balanced correctly, otherwise False.
+        True if brackets are balanced, otherwise False.
     """
-    # TODO: Create an empty stack.
-    # TODO: Create a dictionary of closing brackets to opening brackets.
-    # TODO: Push opening brackets onto the stack.
-    # TODO: For closing brackets, check whether the stack top matches.
-    # TODO: Return True only if the stack is empty at the end.
-    pass
+
+    stack: list[str] = []
+
+    bracket_pairs = {
+        ')': '(',
+        ']': '[',
+        '}': '{'
+    }
+
+    opening_brackets = set(bracket_pairs.values())
+
+    for character in tags:
+
+        # Opening bracket
+        if character in opening_brackets:
+            stack.append(character)
+
+        # Closing bracket
+        elif character in bracket_pairs:
+
+            if not stack:
+                return False
+
+            top_element = stack.pop()
+
+            if top_element != bracket_pairs[character]:
+                return False
+
+    return len(stack) == 0
 
 
 # -----------------------------------------------------------------------------
-# Required Problem 4
+# Problem 4 — Lookup Table
 # -----------------------------------------------------------------------------
 
 def lookup_alias(aliases: dict[str, str], alias: str) -> str | None:
-    """Return the real name connected to an alias.
-
-    Pattern: lookup table
-    Data structure: dictionary
-
-    Examples:
-        >>> aliases = {"Big Red": "Marco Silva", "Ghostline": "Eli Brooks"}
-        >>> lookup_alias(aliases, "Ghostline")
-        'Eli Brooks'
-        >>> lookup_alias(aliases, "Unknown")
-        None
+    """
+    Retrieve the real name associated with an alias.
 
     Args:
-        aliases: A dictionary mapping alias names to real names.
-        alias: The alias to search for.
+        aliases: Dictionary mapping aliases to real names.
+        alias: Alias to search.
 
     Returns:
-        The real name if the alias exists, otherwise None.
+        Real name if found, otherwise None.
     """
-    # TODO: Return the matching real name if the alias exists.
-    # TODO: Return None if the alias is not in the dictionary.
-    pass
+
+    return aliases.get(alias)
 
 
 # -----------------------------------------------------------------------------
-# Optional Challenge 1
+# Optional Challenge 1 — Queue Processing
 # -----------------------------------------------------------------------------
 
 def process_reports(reports: list[str]) -> list[str]:
-    """Return case reports in first-in, first-out processing order.
-
-    Pattern: queue processing
-    Data structure: collections.deque
-
-    This function is optional for the homework unless your instructor tells you
-    otherwise.
-
-    Examples:
-        >>> process_reports(["burglary", "traffic stop", "noise complaint"])
-        ['burglary', 'traffic stop', 'noise complaint']
+    """
+    Process reports using FIFO order.
 
     Args:
-        reports: A list of report labels in arrival order.
+        reports: Incoming reports in arrival order.
 
     Returns:
-        A list of report labels in the order they were processed.
+        Processed reports in FIFO order.
     """
-    # TODO: Create a deque from reports.
-    # TODO: Repeatedly popleft from the queue and append to processed.
-    # TODO: Return processed.
-    queue = deque(reports)
-    pass
+
+    report_queue: deque[str] = deque(reports)
+
+    processed_reports: list[str] = []
+
+    while report_queue:
+        processed_reports.append(report_queue.popleft())
+
+    return processed_reports
 
 
 # -----------------------------------------------------------------------------
-# Optional Challenge 2
+# Optional Challenge 2 — Sorting + Scan
 # -----------------------------------------------------------------------------
 
 def largest_time_gap(times: list[int]) -> int:
-    """Return the largest gap between neighboring event times after sorting.
-
-    Pattern: sorting + scan
-    Data structure: list
-
-    This function is optional for the homework unless your instructor tells you
-    otherwise.
-
-    Treat times as simple integer timestamps for this exercise. For example,
-    915 means 9:15 and 1300 means 13:00. You do not need to convert minutes.
-
-    Examples:
-        >>> largest_time_gap([1300, 915, 1600, 945])
-        355
-        >>> largest_time_gap([1200])
-        0
+    """
+    Find the largest gap between neighboring timestamps.
 
     Args:
-        times: A list of integer event times.
+        times: List of integer timestamps.
 
     Returns:
-        The largest difference between neighboring sorted times. Return 0 if
-        there are fewer than two times.
+        Largest neighboring gap after sorting.
     """
-    # TODO: Return 0 when there are fewer than two times.
-    # TODO: Sort the times. Hint: sorted(times) avoids changing the input list.
-    # TODO: Scan neighboring pairs and track the largest gap.
-    pass
+
+    if len(times) < 2:
+        return 0
+
+    sorted_times = sorted(times)
+
+    maximum_gap = 0
+
+    for current_index in range(len(sorted_times) - 1):
+
+        current_gap = (
+            sorted_times[current_index + 1]
+            - sorted_times[current_index]
+        )
+
+        maximum_gap = max(maximum_gap, current_gap)
+
+    return maximum_gap
+
+
+# -----------------------------------------------------------------------------
+# Manual Testing
+# -----------------------------------------------------------------------------
+
+if __name__ == "__main__":
+
+    print("Problem 1")
+    print(count_evidence(["phone", "receipt", "phone"]))
+
+    print("\nProblem 2")
+    print(first_repeated_id(["A17", "B22", "C91", "B22"]))
+
+    print("\nProblem 3")
+    print(valid_tags("{[()]}"))
+    print(valid_tags("{[(])}"))
+
+    print("\nProblem 4")
+    aliases = {
+        "Big Red": "Marco Silva",
+        "Ghostline": "Eli Brooks"
+    }
+    print(lookup_alias(aliases, "Ghostline"))
+
+    print("\nOptional Challenge 1")
+    print(process_reports([
+        "burglary",
+        "traffic stop",
+        "noise complaint"
+    ]))
+
+    print("\nOptional Challenge 2")
+    print(largest_time_gap([1300, 915, 1600, 945]))
