@@ -1,15 +1,7 @@
 from collections import deque
 
 
-# -----------------------------------------------------------------------------
-# Problem 1
-# -----------------------------------------------------------------------------
-
-def count_evidence(evidence):
-    """
-    Return a dictionary counting how many times each evidence label appears.
-    """
-
+def count_evidence(evidence: list[str]) -> dict[str, int]:
     frequency_map = {}
 
     for label in evidence:
@@ -18,15 +10,7 @@ def count_evidence(evidence):
     return frequency_map
 
 
-# -----------------------------------------------------------------------------
-# Problem 2
-# -----------------------------------------------------------------------------
-
-def first_repeated_id(ids):
-    """
-    Return the first suspect ID that appears a second time.
-    """
-
+def first_repeated_id(ids: list[str]) -> str | None:
     seen_ids = set()
 
     for suspect_id in ids:
@@ -39,15 +23,7 @@ def first_repeated_id(ids):
     return None
 
 
-# -----------------------------------------------------------------------------
-# Problem 3
-# -----------------------------------------------------------------------------
-
-def valid_tags(tags):
-    """
-    Return True if all bracket-style evidence tags are balanced.
-    """
-
+def valid_tags(tags: str) -> bool:
     stack = []
 
     bracket_pairs = {
@@ -60,47 +36,27 @@ def valid_tags(tags):
 
     for character in tags:
 
-        # Opening bracket
         if character in opening_brackets:
             stack.append(character)
 
-        # Closing bracket
         elif character in bracket_pairs:
 
-            # Invalid if stack is empty
             if not stack:
                 return False
 
             top_element = stack.pop()
 
-            # Check matching bracket
             if top_element != bracket_pairs[character]:
                 return False
 
     return len(stack) == 0
 
 
-# -----------------------------------------------------------------------------
-# Problem 4
-# -----------------------------------------------------------------------------
-
-def lookup_alias(aliases, alias):
-    """
-    Return the real name connected to an alias.
-    """
-
+def lookup_alias(aliases: dict[str, str], alias: str) -> str | None:
     return aliases.get(alias)
 
 
-# -----------------------------------------------------------------------------
-# Optional Challenge 1
-# -----------------------------------------------------------------------------
-
-def process_reports(reports):
-    """
-    Return case reports in first-in, first-out processing order.
-    """
-
+def process_reports(reports: list[str]) -> list[str]:
     report_queue = deque(reports)
 
     processed_reports = []
@@ -111,14 +67,7 @@ def process_reports(reports):
     return processed_reports
 
 
-# -----------------------------------------------------------------------------
-# Optional Challenge 2
-# -----------------------------------------------------------------------------
-
-def largest_time_gap(times):
-    """
-    Return the largest gap between neighboring event times after sorting.
-    """
+def largest_time_gap(times: list[int]) -> int:
 
     if len(times) < 2:
         return 0
