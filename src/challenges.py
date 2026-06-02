@@ -1,37 +1,16 @@
-"""
-Week 1 Homework: Evidence Desk Patterns
-
-Author: Sushant Thapa
-Python Version: 3.11+
-
-Patterns Used:
-1. Frequency Counting
-2. Seen-Before Detection
-3. Stack Matching
-4. Lookup Table
-5. Queue Processing
-6. Sorting + Scanning
-"""
-
 from collections import deque
 
 
 # -----------------------------------------------------------------------------
-# Problem 1 — Frequency Counting
+# Problem 1
 # -----------------------------------------------------------------------------
 
-def count_evidence(evidence: list[str]) -> dict[str, int]:
+def count_evidence(evidence):
     """
-    Count how many times each evidence label appears.
-
-    Args:
-        evidence: List of evidence labels.
-
-    Returns:
-        Dictionary containing evidence counts.
+    Return a dictionary counting how many times each evidence label appears.
     """
 
-    frequency_map: dict[str, int] = {}
+    frequency_map = {}
 
     for label in evidence:
         frequency_map[label] = frequency_map.get(label, 0) + 1
@@ -40,21 +19,15 @@ def count_evidence(evidence: list[str]) -> dict[str, int]:
 
 
 # -----------------------------------------------------------------------------
-# Problem 2 — Seen-Before Pattern
+# Problem 2
 # -----------------------------------------------------------------------------
 
-def first_repeated_id(ids: list[str]) -> str | None:
+def first_repeated_id(ids):
     """
-    Find the first suspect ID that appears twice.
-
-    Args:
-        ids: List of suspect IDs.
-
-    Returns:
-        First repeated ID or None.
+    Return the first suspect ID that appears a second time.
     """
 
-    seen_ids: set[str] = set()
+    seen_ids = set()
 
     for suspect_id in ids:
 
@@ -67,24 +40,15 @@ def first_repeated_id(ids: list[str]) -> str | None:
 
 
 # -----------------------------------------------------------------------------
-# Problem 3 — Stack Matching
+# Problem 3
 # -----------------------------------------------------------------------------
 
-def valid_tags(tags: str) -> bool:
+def valid_tags(tags):
     """
-    Validate whether all brackets are balanced.
-
-    Supported brackets:
-        (), [], {}
-
-    Args:
-        tags: String containing possible bracket characters.
-
-    Returns:
-        True if brackets are balanced, otherwise False.
+    Return True if all bracket-style evidence tags are balanced.
     """
 
-    stack: list[str] = []
+    stack = []
 
     bracket_pairs = {
         ')': '(',
@@ -103,11 +67,13 @@ def valid_tags(tags: str) -> bool:
         # Closing bracket
         elif character in bracket_pairs:
 
+            # Invalid if stack is empty
             if not stack:
                 return False
 
             top_element = stack.pop()
 
+            # Check matching bracket
             if top_element != bracket_pairs[character]:
                 return False
 
@@ -115,42 +81,29 @@ def valid_tags(tags: str) -> bool:
 
 
 # -----------------------------------------------------------------------------
-# Problem 4 — Lookup Table
+# Problem 4
 # -----------------------------------------------------------------------------
 
-def lookup_alias(aliases: dict[str, str], alias: str) -> str | None:
+def lookup_alias(aliases, alias):
     """
-    Retrieve the real name associated with an alias.
-
-    Args:
-        aliases: Dictionary mapping aliases to real names.
-        alias: Alias to search.
-
-    Returns:
-        Real name if found, otherwise None.
+    Return the real name connected to an alias.
     """
 
     return aliases.get(alias)
 
 
 # -----------------------------------------------------------------------------
-# Optional Challenge 1 — Queue Processing
+# Optional Challenge 1
 # -----------------------------------------------------------------------------
 
-def process_reports(reports: list[str]) -> list[str]:
+def process_reports(reports):
     """
-    Process reports using FIFO order.
-
-    Args:
-        reports: Incoming reports in arrival order.
-
-    Returns:
-        Processed reports in FIFO order.
+    Return case reports in first-in, first-out processing order.
     """
 
-    report_queue: deque[str] = deque(reports)
+    report_queue = deque(reports)
 
-    processed_reports: list[str] = []
+    processed_reports = []
 
     while report_queue:
         processed_reports.append(report_queue.popleft())
@@ -159,18 +112,12 @@ def process_reports(reports: list[str]) -> list[str]:
 
 
 # -----------------------------------------------------------------------------
-# Optional Challenge 2 — Sorting + Scan
+# Optional Challenge 2
 # -----------------------------------------------------------------------------
 
-def largest_time_gap(times: list[int]) -> int:
+def largest_time_gap(times):
     """
-    Find the largest gap between neighboring timestamps.
-
-    Args:
-        times: List of integer timestamps.
-
-    Returns:
-        Largest neighboring gap after sorting.
+    Return the largest gap between neighboring event times after sorting.
     """
 
     if len(times) < 2:
@@ -187,40 +134,7 @@ def largest_time_gap(times: list[int]) -> int:
             - sorted_times[current_index]
         )
 
-        maximum_gap = max(maximum_gap, current_gap)
+        if current_gap > maximum_gap:
+            maximum_gap = current_gap
 
     return maximum_gap
-
-
-# -----------------------------------------------------------------------------
-# Manual Testing
-# -----------------------------------------------------------------------------
-
-if __name__ == "__main__":
-
-    print("Problem 1")
-    print(count_evidence(["phone", "receipt", "phone"]))
-
-    print("\nProblem 2")
-    print(first_repeated_id(["A17", "B22", "C91", "B22"]))
-
-    print("\nProblem 3")
-    print(valid_tags("{[()]}"))
-    print(valid_tags("{[(])}"))
-
-    print("\nProblem 4")
-    aliases = {
-        "Big Red": "Marco Silva",
-        "Ghostline": "Eli Brooks"
-    }
-    print(lookup_alias(aliases, "Ghostline"))
-
-    print("\nOptional Challenge 1")
-    print(process_reports([
-        "burglary",
-        "traffic stop",
-        "noise complaint"
-    ]))
-
-    print("\nOptional Challenge 2")
-    print(largest_time_gap([1300, 915, 1600, 945]))
